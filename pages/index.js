@@ -1,34 +1,8 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
+import React from 'react';
+import { useRouter } from 'next/router';
 import appConfig from '../config.json';
 
-function GlobalStyle() {
-    return (
-      <style global jsx>{`
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          list-style: none;
-        }
-        body {
-          font-family: 'Open Sans', sans-serif;
-        }
-        /* App fit Height */ 
-        html, body, #__next {
-          min-height: 100vh;
-          display: flex;
-          flex: 1;
-        }
-        #__next {
-          flex: 1;
-        }
-        #__next > * {
-          flex: 1;
-        }
-        /* ./App fit Height */ 
-      `}</style>
-    );
-}
 
 function Titulo(props) {
     const Tag = props.tag || 'h1';
@@ -59,11 +33,13 @@ function HomePage() {
   
 export default HomePage */
 export default function PaginaInicial() {
-    const username = 'fmarga';
+    //const username = 'fmarga';
+    const [username, setUnsername] = React.useState('');
+    const roteamento = useRouter();
+    const avatar = "https://marcas-logos.net/wp-content/uploads/2020/03/GITHUB-LOGO.png";
   
     return (
       <>
-        <GlobalStyle />
         <Box
           styleSheet={{
             display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -88,6 +64,12 @@ export default function PaginaInicial() {
             {/* Formulário */}
             <Box
               as="form"
+              onSubmit={function (event) {
+                event.preventDefault();
+                console.log('Alguem submeteu o form');
+                roteamento.push('/chat'); //jeito com hooks do react
+               // window.location.href = '/chat'; jeito tradicional
+              }}
               styleSheet={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
@@ -97,8 +79,14 @@ export default function PaginaInicial() {
               <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
                 {appConfig.name}
               </Text>
-  
               <TextField
+                value={username}
+                onChange={function handler(event) {
+                  //pegar o valor digitado
+                  const valor = event.target.value;
+                  //trocar o valor da variavel
+                  setUnsername(valor);
+                }}
                 fullWidth
                 textFieldColors={{
                   neutral: {
@@ -145,7 +133,10 @@ export default function PaginaInicial() {
                   borderRadius: '50%',
                   marginBottom: '16px',
                 }}
-                src={`https://github.com/${username}.png`}
+                src={
+                  username.length > 2
+                  ? `https://github.com/${username}.png`
+                  : avatar}
               />
               <Text
                 variant="body4"
