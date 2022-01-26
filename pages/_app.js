@@ -34,7 +34,7 @@ export default function MyApp({ Component, pageProps }) {
             <GlobalStyle />
             <Component {...pageProps} />
         </>
-        )
+    )
 }
 
 //tudo que colocar nessa funcao roda em todas as paginas
