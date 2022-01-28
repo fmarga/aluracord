@@ -12,4 +12,17 @@ Tecnologias utilizadas:
 
 ---
 
+### Conceitos abordados:
+
+1. Componentes no React
+2. Utilização do NextJs
+3. useState e useRouter
+4. useEffect
+5. Navegação SPA
+6. requests HTTP
+7. AJAX
+8. Integração com banco de dados
+
+---
+
 [Link da página](https://aluracord-fmarga.vercel.app/)
